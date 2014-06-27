@@ -580,6 +580,11 @@ static int add_file(const char *name, int dirfd)
 		goto out;
 	}
 
+	if (st.st_size == 0) {
+		fprintf(stderr, "Skipping empty file %s\n", path);
+		goto out;
+	}
+
 	ret = faccessat(dirfd, name, R_OK, 0);
 	if (ret) {
 		fprintf(stderr, "Error %d: %s while accessing file %s. "
