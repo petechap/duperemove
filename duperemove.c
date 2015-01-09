@@ -338,6 +338,8 @@ int main(int argc, char **argv)
 
 	printf("Using %uK blocks\n", blocksize/1024);
 	printf("Using hash: %s\n", csum_mod->name);
+	printf("Disabled btrfs check\n");
+	printf("Disabled fiemap on scan\n");
 
 	if (!read_hashes) {
 		ret = populate_hash_tree(&tree);

@@ -158,12 +158,14 @@ int add_file(const char *name, int dirfd)
 		goto out;
 	}
 
+#if 0
 	ret = check_file_btrfs(fd, &on_btrfs);
 	if (ret) {
 		close(fd);
 		fprintf(stderr, "Skip file \"%s\" due to errors\n", path);
 		goto out;
 	}
+#endif
 
 	if (run_dedupe && !on_btrfs) {
 		close(fd);
@@ -229,6 +231,7 @@ static void csum_whole_file(struct filerec *file, struct hash_tree *tree)
 	       cur_num_filerecs, num_filerecs,
 		(double)cur_num_filerecs / (double)num_filerecs * 100);
 
+#if 0
 	if (do_lookup_extents) {
 		fc = alloc_fiemap_ctxt();
 		if (fc == NULL) /* This should be non-fatal */
@@ -236,6 +239,7 @@ static void csum_whole_file(struct filerec *file, struct hash_tree *tree)
 				"Low memory allocating fiemap context for \"%s\"\n",
 				file->filename);
 	}
+#endif
 
 	ret = filerec_open(file, 0);
 	if (ret)
