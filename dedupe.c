@@ -90,9 +90,9 @@ static void print_btrfs_same_info(struct dedupe_ctxt *ctxt)
 	struct btrfs_ioctl_same_extent_info *info;
 	struct dedupe_req *req;
 
-	dprintf(_PRE"btrfs same info: ioctl_file: \"%s\"\n",
-		file ? file->filename : "(null)");
-	dprintf(_PRE"logical_offset: %llu, length: %llu, dest_count: %u\n",
+	printf(_PRE"btrfs same info: ioctl_file: \"%s\"\n",
+	       file ? file->filename : "(null)");
+	printf(_PRE"logical_offset: %llu, length: %llu, dest_count: %u\n",
 		(unsigned long long)same->logical_offset,
 		(unsigned long long)same->length, same->dest_count);
 
@@ -100,7 +100,7 @@ static void print_btrfs_same_info(struct dedupe_ctxt *ctxt)
 		info = &same->info[i];
 		req = same_idx_to_request(ctxt, i);
 		file = req->req_file;
-		dprintf(_PRE"info[%d]: name: \"%s\", fd: %llu, logical_offset: "
+		printf(_PRE"info[%d]: name: \"%s\", fd: %llu, logical_offset: "
 			"%llu, bytes_deduped: %llu, status: %d\n",
 			i, file ? file->filename : "(null)", (long long)info->fd,
 			(unsigned long long)info->logical_offset,
@@ -281,8 +281,7 @@ int dedupe_extents(struct dedupe_ctxt *ctxt)
 		if (ret)
 			break;
 
-		if (debug)
-			print_btrfs_same_info(ctxt);
+		print_btrfs_same_info(ctxt);
 
 		process_dedupes(ctxt, ctxt->same);
 	}
