@@ -207,6 +207,8 @@ static int dedupe_extent_list(struct dupe_extents *dext, uint64_t *fiemap_bytes,
 	/* Second pass: remove already deduped extents. */
 	while(clean_deduped(&dext));
 
+	if (dext == NULL)
+		ret = -1;
 	if (dext == NULL || list_empty(&dext->de_extents))
 		goto out;
 
